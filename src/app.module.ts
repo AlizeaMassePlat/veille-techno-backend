@@ -1,12 +1,29 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ListsModule } from './lists/lists.module';
-import { ListsController } from './lists/lists.controller';
-import { ListsService } from './lists/lists.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
+import { User } from './user/entity/user.entity';
 @Module({
-  imports: [ListsModule],
-  controllers: [AppController, ListsController],
-  providers: [AppService, ListsService],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => ({
+        type: 'postgres',
+        host: config.get('POSTGRES_HOST'),
+        port: parseInt(config.get('POSTGRES_PORT')),
+        username: config.get('POSTGRES_USER'),
+        password: config.get('POSTGRES_PASSWORD'),
+        database: config.get('POSTGRES_DATABASE'),
+        entities: [User],
+        synchronize: true,
+      }),
+    }),
+
+    UserModule,
+  ],
 })
 export class AppModule {}
