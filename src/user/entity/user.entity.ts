@@ -1,5 +1,6 @@
 import { Card } from 'src/card/entity/card.entity';
 import { List } from 'src/list/entity/list.entity';
+import { Exclude } from 'class-transformer';
 import {
   Entity,
   Column,
@@ -40,4 +41,20 @@ export class User {
 
   @OneToMany(() => Card, (card) => card.user)
   cards: Card[];
+}
+
+export class UserEntity {
+  constructor(partial: Partial<UserEntity>) {
+    Object.assign(this, partial);
+  }
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+
+  @Exclude()
+  hash: string;
 }
