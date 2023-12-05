@@ -9,4 +9,8 @@ export class ListService {
     @InjectRepository(List)
     private readonly listRepo: Repository<List>,
   ) {}
+
+  getLists() {
+    return this.listRepo.find();
+  }
 }
