@@ -3,6 +3,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { User } from './user/entity/user.entity';
+import { ListModule } from './list/list.module';
+import { List } from './list/entity/list.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -18,12 +20,12 @@ import { User } from './user/entity/user.entity';
         username: config.get('POSTGRES_USER'),
         password: config.get('POSTGRES_PASSWORD'),
         database: config.get('POSTGRES_DATABASE'),
-        entities: [User],
+        entities: [User, List],
         synchronize: true,
       }),
     }),
-
     UserModule,
+    ListModule,
   ],
 })
 export class AppModule {}
