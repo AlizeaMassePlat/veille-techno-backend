@@ -3,6 +3,8 @@ import { UserService } from './user.service';
 import { UserEntity } from './entity/user.entity';
 import { RegisterDto } from './dto/register.dto';
 import { SigninDto } from './dto/signin.dto';
+import { RefreshtokenDto } from './dto';
+import { SerializeUser } from './decorator/serialize-user.decorator';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -23,5 +25,15 @@ export class UserController {
     refresh_token: string;
   }> {
     return this.userService.signin(dto);
+  }
+
+  @Post('refresh')
+  refreshToken(
+    @SerializeUser() user: UserEntity,
+    @Body() dto: RefreshtokenDto,
+  ): Promise<{
+    access_token: string;
+  }> {
+    return this.userService.refreshToken(user, dto);
   }
 }
