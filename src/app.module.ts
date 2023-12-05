@@ -5,6 +5,7 @@ import { UserModule } from './user/user.module';
 import { User } from './user/entity/user.entity';
 import { ListModule } from './list/list.module';
 import { List } from './list/entity/list.entity';
+import { CardModule } from './card/card.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -26,6 +27,7 @@ import { List } from './list/entity/list.entity';
     }),
     UserModule,
     ListModule,
+    CardModule,
   ],
 })
 export class AppModule {}
