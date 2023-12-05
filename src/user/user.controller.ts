@@ -10,8 +10,8 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  getUser(user: UserEntity): UserEntity {
-    return user;
+  getUsers() {
+    return this.userService.getUsers();
   }
 
   @Post('register')

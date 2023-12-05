@@ -30,6 +30,10 @@ export class UserService {
     private readonly jwtService: JwtService,
   ) {}
 
+  getUsers() {
+    return this.userRepo.find();
+  }
+
   public async register(dto: RegisterDto): Promise<UserEntity> {
     try {
       const hash = await argon.hash(dto.password);
