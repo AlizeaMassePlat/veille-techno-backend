@@ -7,10 +7,13 @@ import { ListModule } from './list/list.module';
 import { List } from './list/entity/list.entity';
 import { CardModule } from './card/card.module';
 import { Card } from './card/entity/card.entity';
+import { RefreshToken } from './user/entity';
+import { accessTokenConfig, refreshTokenConfig } from './config';
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      load: [accessTokenConfig, refreshTokenConfig],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -22,7 +25,7 @@ import { Card } from './card/entity/card.entity';
         username: config.get('POSTGRES_USER'),
         password: config.get('POSTGRES_PASSWORD'),
         database: config.get('POSTGRES_DATABASE'),
-        entities: [User, List, Card],
+        entities: [User, List, Card, RefreshToken],
         synchronize: true,
       }),
     }),
