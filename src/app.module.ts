@@ -6,6 +6,7 @@ import { User } from './user/entity/user.entity';
 import { ListModule } from './list/list.module';
 import { List } from './list/entity/list.entity';
 import { CardModule } from './card/card.module';
+import { Card } from './card/entity/card.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -21,7 +22,7 @@ import { CardModule } from './card/card.module';
         username: config.get('POSTGRES_USER'),
         password: config.get('POSTGRES_PASSWORD'),
         database: config.get('POSTGRES_DATABASE'),
-        entities: [User, List],
+        entities: [User, List, Card],
         synchronize: true,
       }),
     }),
