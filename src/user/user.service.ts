@@ -135,28 +135,8 @@ export class UserService {
       access_token: accessToken,
     };
   }
-  public async editUser(
-    userId: string,
-    dto: EditUserDto,
-  ): Promise<UpdateResult> {
-    if (dto.password) {
-      const { password, ...rest } = dto;
-      const hash = await argon.hash(password);
-
-      return await this.userRepo.update(
-        { id: userId },
-        {
-          hash,
-          ...rest,
-        },
-      );
-    }
-
-    return await this.userRepo.update(
-      { id: userId },
-      {
-        ...dto,
-      },
-    );
+  async update(id: string, user: Partial<User>): Promise<User> {
+    await this.userRepo.update(id, user);
+    return this.userRepo.findOne({ where: { id } });
   }
 }
