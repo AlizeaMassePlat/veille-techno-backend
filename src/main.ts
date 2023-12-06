@@ -9,6 +9,17 @@ async function bootstrap() {
     .setDescription('Kanban API REST Documentation')
     .setVersion('1.0')
     .addTag('API-REST', 'Kanban')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token',
+        in: 'header',
+      },
+      'JWT-auth',
+    )
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
