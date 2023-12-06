@@ -35,7 +35,7 @@ export class CardController {
   }
 
   @Delete(':id')
-  deletePoll(
+  deleteCard(
     @SerializeUser() user: UserEntity,
     @Param() card: UuidDto,
   ): Promise<DeleteResult> {
