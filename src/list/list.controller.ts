@@ -1,10 +1,19 @@
-import { Controller, Get, Post, Body, Delete, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Delete,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { ListService } from './list.service';
 import { CreateListDto } from './dto/create-list.dto';
 import { SerializeUser } from 'src/user/decorator/serialize-user.decorator';
 import { UserEntity } from 'src/user/entity';
 import { UuidDto } from 'src/list/dto/uuid.dto';
 import { DeleteResult } from 'typeorm';
+import { AccessGuard } from '../user/guard/access-token.guard';
 
 @Controller('list')
 export class ListController {
@@ -20,6 +29,7 @@ export class ListController {
     return this.listService.addList(createListDto, userId);
   }
 
+  @UseGuards(AccessGuard)
   @Delete(':id')
   deleteList(
     @SerializeUser() user: UserEntity,

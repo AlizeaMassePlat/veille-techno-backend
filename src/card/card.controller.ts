@@ -6,6 +6,7 @@ import {
   Put,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { CardService } from './card.service';
 import { CreateCardDto } from './dto/create-card.dto';
@@ -14,6 +15,7 @@ import { UserEntity } from 'src/user/entity';
 import { SerializeUser } from 'src/user/decorator/serialize-user.decorator';
 import { DeleteResult } from 'typeorm';
 import { UuidDto } from './dto/uuid.dto';
+import { AccessGuard } from '../user/guard/access-token.guard';
 
 @Controller('card')
 export class CardController {
@@ -28,12 +30,12 @@ export class CardController {
   addCard(@Body() createCardDto: CreateCardDto, userId: string) {
     return this.cardService.addCard(createCardDto, userId);
   }
-
+  @UseGuards(AccessGuard)
   @Put(':id')
   async updateCard(@Param('id') id: string, @Body() card: Card): Promise<any> {
     return this.cardService.updateCard(id, card);
   }
-
+  @UseGuards(AccessGuard)
   @Delete(':id')
   deleteCard(
     @SerializeUser() user: UserEntity,
