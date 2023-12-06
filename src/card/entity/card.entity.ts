@@ -21,10 +21,10 @@ export class Card {
   @Column()
   description: string;
 
-  @ManyToOne(() => User, (user) => user.cards)
+  @ManyToOne(() => User, (user) => user.cards, { onDelete: 'CASCADE' })
   user: User;
 
-  @ManyToOne(() => List, (list) => list.cards)
+  @ManyToOne(() => List, (list) => list.cards, { onDelete: 'CASCADE' })
   list: List;
 
   @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })

@@ -7,13 +7,12 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entity/user.entity';
 import { RefreshToken } from './entity';
-import { Repository, QueryFailedError, UpdateResult } from 'typeorm';
+import { Repository, QueryFailedError } from 'typeorm';
 import { UserEntity } from './entity/user.entity';
 import { RegisterDto } from './dto/register.dto';
 import * as argon from 'argon2';
 import { SigninDto } from './dto/signin.dto';
 import { RefreshtokenDto } from './dto';
-import { EditUserDto } from './dto/edit-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import {
   JwtConfig,
