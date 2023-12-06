@@ -7,12 +7,13 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entity/user.entity';
 import { RefreshToken } from './entity';
-import { Repository, QueryFailedError } from 'typeorm';
+import { Repository, QueryFailedError, UpdateResult } from 'typeorm';
 import { UserEntity } from './entity/user.entity';
 import { RegisterDto } from './dto/register.dto';
 import * as argon from 'argon2';
 import { SigninDto } from './dto/signin.dto';
 import { RefreshtokenDto } from './dto';
+import { EditUserDto } from './dto/edit-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import {
   JwtConfig,
@@ -133,5 +134,29 @@ export class UserService {
     return {
       access_token: accessToken,
     };
+  }
+  public async editUser(
+    userId: string,
+    dto: EditUserDto,
+  ): Promise<UpdateResult> {
+    if (dto.password) {
+      const { password, ...rest } = dto;
+      const hash = await argon.hash(password);
+
+      return await this.userRepo.update(
+        { id: userId },
+        {
+          hash,
+          ...rest,
+        },
+      );
+    }
+
+    return await this.userRepo.update(
+      { id: userId },
+      {
+        ...dto,
+      },
+    );
   }
 }

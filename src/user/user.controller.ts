@@ -1,10 +1,12 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserEntity } from './entity/user.entity';
 import { RegisterDto } from './dto/register.dto';
 import { SigninDto } from './dto/signin.dto';
 import { RefreshtokenDto } from './dto';
+import { EditUserDto } from './dto/edit-user.dto';
 import { SerializeUser } from './decorator/serialize-user.decorator';
+import { UpdateResult } from 'typeorm';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -35,5 +37,13 @@ export class UserController {
     access_token: string;
   }> {
     return this.userService.refreshToken(user, dto);
+  }
+
+  @Patch('edit')
+  editUser(
+    @SerializeUser('id') userId: string,
+    @Body() dto: EditUserDto,
+  ): Promise<UpdateResult> {
+    return this.userService.editUser(userId, dto);
   }
 }
