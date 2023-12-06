@@ -1,7 +1,5 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { ListService } from './list.service';
-import { SerializeUser } from 'src/user/decorator/serialize-user.decorator';
-import { UserEntity } from 'src/user/entity';
 import { CreateListDto } from './dto/create-list.dto';
 
 @Controller('list')

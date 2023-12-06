@@ -1,13 +1,18 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Body, Post } from '@nestjs/common';
 import { CardService } from './card.service';
-import { Card } from './entity/card.entity';
+import { CreateCardDto } from './dto/create-card.dto';
 
 @Controller('card')
 export class CardController {
   constructor(private readonly cardService: CardService) {}
 
   @Get()
-  getCard(card: Card) {
-    return card;
+  getCard() {
+    return this.cardService.getCards();
+  }
+
+  @Post()
+  addCard(@Body() createCardDto: CreateCardDto, userId: string) {
+    return this.cardService.addCard(createCardDto, userId);
   }
 }
