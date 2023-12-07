@@ -1,38 +1,35 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# README pour le Projet Kanban API REST
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+![Apperçu de l'api [User]](/Capture%20d'écran%202023-12-07%20100354.png)
+![Apperçu de l'api [List]](/Capture%20d'écran%202023-12-07%20100423.png)
+![Apperçu de l'api [Card]](/Capture%20d'écran%202023-12-07%20100439.png)
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Ce projet est une API de tableau Kanban développée avec NestJS, utilisant PostgreSQL comme base de données, TypeORM pour la gestion des objets et Swagger pour la documentation de l'API. Elle permet de créer et de gérer des colonnes de tâches, d'ajouter, de modifier, et de supprimer des tâches dans ces colonnes via des appels API. L'API est conçue pour être robuste, sécurisée et facilement intégrable avec des front-ends comme Vue.js.
+
+## Prérequis
+
+Node.js
+PostgreSQL
+npm
 
 ## Installation
+
+Cloner le dépôt git :
+
+git clone [URL_DU_DEPOT]
+
+Installer les dépendances :
 
 ```bash
 $ npm install
 ```
+Configurer la base de données :
 
-## Running the app
+Créer une base de données PostgreSQL et configurer les informations de connexion dans un fichier .env.
+
+## Démarage de l'application
 
 ```bash
 # development
@@ -44,30 +41,36 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+L'API sera accessible à l'adresse [http://localhost:3000]. La documentation Swagger de l'API sera disponible sur [http://localhost:3000/api].
 
-## Test
+## Structure du Projet
 
-```bash
-# unit tests
-$ npm run test
+Le projet est organisé en modules, chacun représentant un aspect distinct de l'application Kanban Board. Voici une explication de certains dossiers et fichiers clés :
 
-# e2e tests
-$ npm run test:e2e
+- `src/` : Dossier racine du code source de l'API.
+  - `[moduleName]/` : Dossier module qui représente le composant.
+    - `dto/` : Data Transfer Objects (DTO) définissant la structure et la validation des données pour les opérations concernant les composants.
+    - `entity/` : Entités TypeORM représentant la table dans la base de données.
+    - `[moduleName].controller.ts` : Contrôleur gérant les requêtes entrantes relatives aux modules.
+    - `[moduleName].module.ts` : Module NestJS regroupant les providers relatifs aux modules.
+    - `[moduleName].service.ts` : Service contenant la logique métier pour les opérations sur les modules.
 
-# test coverage
-$ npm run test:cov
-```
+Chaque module est conçu pour être indépendant, ce qui facilite la maintenance et l'évolutivité de l'application.
+
+## Directives pour les Développeur.euses
+
+Ajout de nouvelles fonctionnalités : Créez de nouveaux modules ou services NestJS pour étendre les fonctionnalités de l'API.
+Modification de la base de données : Utilisez TypeORM pour créer ou modifier les entités.
+Documentation API : Mettez à jour la documentation Swagger pour refléter les changements dans l'API.
+
+## Contribution
+
+Pour contribuer au projet, veuillez suivre les étapes suivantes :
+
+Créez une branche pour votre fonctionnalité ou correction de bug.
+Développez et testez vos modifications en local.
+Soumettez une Pull Request avec une description détaillée de vos changements.
 
 ## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Pour toute question ou problème, veuillez ouvrir une issue sur le dépôt du projet.
