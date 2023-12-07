@@ -29,6 +29,35 @@ Configurer la base de données :
 
 Créer une base de données PostgreSQL et configurer les informations de connexion dans un fichier .env.
 
+## Configuration du service PostgreSQL avec Docker Compose
+
+Le fichier docker-compose.yml définit la configuration pour déployer un service PostgreSQL dans un environnement Docker. Voici une explication détaillée de ses composants :
+
+Version: La version '3.7' de Docker Compose est utilisée, offrant une compatibilité et des fonctionnalités avancées.
+
+### Services:
+
+postgres: Définit le service PostgreSQL.
+
+image: Utilise postgres:13, qui est une image Docker officielle de PostgreSQL version 13.
+
+env_file: Charge les variables d'environnement depuis un fichier .env situé dans le même répertoire que le fichier Docker Compose.
+
+container_name: Nomme le conteneur Docker en tant que my-postgres.
+
+ports: Mappe le port 5432 du conteneur au port 5432 de l'hôte, permettant l'accès au service PostgreSQL depuis l'extérieur du conteneur.
+
+environment: Définit les variables d'environnement spécifiques à PostgreSQL :
+POSTGRES_DB: Nom de la base de données, tiré de la variable d'environnement POSTGRES_DATABASE.
+POSTGRES_USER: Nom de l'utilisateur, tiré de la variable POSTGRES_USER.
+POSTGRES_PASSWORD: Mot de passe de l'utilisateur, tiré de la variable POSTGRES_PASSWORD.
+
+postgres_data:/var/lib/postgresql/data : Stocke les données de la base de données dans un volume nommé postgres_data.
+
+volumes: postgres_data: Déclare un volume Docker nommé postgres_data, utilisé pour la persistance des données.
+
+Cette configuration facilite le déploiement et la gestion d'une base de données PostgreSQL dans un environnement Docker, en garantissant que les données sont conservées même après que le conteneur soit arrêté ou supprimé.
+
 ## Démarage de l'application
 
 ```bash
